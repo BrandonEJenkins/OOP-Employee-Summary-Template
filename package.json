@@ -1,0 +1,26 @@
+{
+  "name": "oop-employee-summary-template",
+  "version": "1.0.0",
+  "description": "Prompts user for team information and creates HTML file that displays user responses",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandonEJenkins/OOP-Employee-Summary-Template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrandonEJenkins/OOP-Employee-Summary-Template/issues"
+  },
+  "homepage": "https://github.com/BrandonEJenkins/OOP-Employee-Summary-Template#readme",
+  "dependencies": {
+    "jest": "^26.0.1"
+  }
+}
