@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-</head>
-<body>
-
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Intern</h5>
-          <p class="card-text">Interns are awesome!</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
+    <div class="card rounded" style="width: 18rem;">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body bg-secondary text-white">
+        <h2 class="card-title">{{name}}</h5>
+        <h3 class="card-text">{{ role }}</h3>
       </div>
-
-</body>
-</html>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID Number: {{ id }}</li>
+        <li class="list-group-item">Email: <a href="mailto:{{ email }}">{{ email }}</a></li>
+        <li class="list-group-item">School: {{ school }}</li>
+      </ul>
+  </div>
