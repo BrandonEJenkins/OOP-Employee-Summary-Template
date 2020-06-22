@@ -2,13 +2,13 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
-// const path = require("path");
-// const fs = require("fs");
+const path = require("path");
+const fs = require("fs");
 
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-// const render = require("./lib/htmlRenderer");
+const render = require("./lib/htmlRenderer");
 
 // Array to store user responses
 const employeeResponseArr = [];
@@ -31,12 +31,12 @@ const employeeQuestionArr = [
     },
     {
         type: 'list',
-        name: 'employeeRole',
+        name: 'employeeOption',
         message: 'Confirm role of team member:',
-        choices: [ 'Manager', 'Engineer', 'Intern' ]
-    },
+        choices: [ 'Manager', 'Engineer', 'Intern', 'Finished' ]
+    }
 
-]
+];
 
 const managerQuestionArr = [
     
@@ -59,9 +59,15 @@ const managerQuestionArr = [
     // },
     {
         type: 'input',
-        name: 'managerOfficeNumber',
+        name: 'email',
+        message: 'Enter Manager\'s email address:'
+    },
+    {
+        type: 'input',
+        name: 'officeNumber',
         message: 'Enter Manager\'s office number:'
     }
+
 ];
 
 const engineerQuestionArr = [
@@ -116,53 +122,116 @@ const internQuestionArr = [
 ];
 
 
-const addEmployee = [
+// const addEmployee = [
 
-    {
-        type: 'list',
-        name: 'newTeamMember',
-        message: 'Select role of team member to add: ',
-        choices: ['Manager', 'Engineer', 'Intern', 'Finished']
-    }
+//     {
+//         type: 'list',
+//         name: 'newTeamMember',
+//         message: 'Select role of team member to add: ',
+//         choices: ['Manager', 'Engineer', 'Intern', 'Finished']
+//     }
 
-];
+// ];
 
 
-// function init() {
-//     employeeQuestions();
-// }
-
-// function nextEmployee() {
-//     inquirer.prompt(employeeQuestionArr).then((response) => {
-//         console.log(response);
-//         switch (response.employeeRole) {
-//             case 'Manager':
-
-//         }
-//     })
-// }
 
 
 function init() {
     inquirer
         .prompt(employeeQuestionArr)
             .then((response) => {
-                if(response.employeeRole === 'Manager') {
-                    inquirer.prompt(managerQuestionArr);
-                } else if (response.employeeRole === 'Engineer') {
-                    inquirer.prompt(engineerQuestionArr);
+                if(response.employeeOption === 'Manager') {
+                    inquirer.prompt(managerQuestionArr).then((mgrResponse) => {
+
+                        let name = mgrResponse.name;
+                        let id = mgrResponse.id;
+                        let email = mgrResponse.email;
+                        let officeNumber = mgrResponse.officeNumber;
+
+                        const managerEmployee = new Manager(name, id, email, officeNumber);
+
+                        employeeResponseArr.push(response);
+                        employeeResponseArr.push(managerEmployee);
+
+                        console.log(employeeResponseArr);
+
+                    });
+                } else if (response.employeeOption === 'Engineer') {
+                    inquirer.prompt(engineerQuestionArr).then((engrResponse) => {
+
+                        let name = engrResponse.name;
+                        let id = engrResponse.id;
+                        let email = engrResponse.email;
+                        let github = engrResponse.engGithub;
+
+                        const engineerEmployee = new Engineer(name, id, email, github);
+
+                        employeeResponseArr.push(response);
+                        employeeResponseArr.push(engineerEmployee);
+
+                        console.log(employeeResponseArr);
+
+                    });
+                } else if (response.employeeOption === 'Intern') {
+                    inquirer.prompt(internQuestionArr).then((internResponse) => {
+
+                        let name = internResponse.name;
+                        let id = internResponse.id;
+                        let email = internResponse.email;
+                        let github = internResponse.engGithub;
+
+                        const internEmployee = new Engineer(name, id, email, github);
+
+                        employeeResponseArr.push(response);
+                        employeeResponseArr.push(internEmployee);
+
+                        console.log(employeeResponseArr);
+
+                    });
                 } else {
-                    inquirer.prompt(internQuestionArr);
+                    
+                    console.log('Generating team org page...')
+                    buildTeamSummary();
                 }
             });
+        
 };
+
+
+function buildTeamSummary() {
+
+    fs.writeFile(outputPath, render(employeeResponseArr), function(error) {
+        if (error) {
+            return console.log(error)
+        }
+    })
+
+}
+
 
 init();
 
 // function init() {
+//     inquirer
+//         .prompt(employeeQuestionArr)
+//             .then((response) => {
+//                 if(response.employeeRole === 'Manager') {
+//                     inquirer.prompt(managerQuestionArr);
+//                 } else if (response.employeeRole === 'Engineer') {
+//                     inquirer.prompt(engineerQuestionArr);
+//                 } else {
+//                     inquirer.prompt(internQuestionArr);
+//                 }
+//             });
+        
+        
+// };
+
+// init();
+
+// function init() {
     
 //     managerQuestions();
-
 // }
 
 
@@ -190,16 +259,14 @@ init();
 // }
 
 
+
 // function managerQuestions()
 
 //     inquirer.prompt(managerQuestionArr).then((response) => {
 
-
-
 //         nextEmployee();
 
 //     })
-
 
 
 
@@ -234,13 +301,6 @@ init();
 // </html>
 //     `;
 // }
-
-
-
-
-
-
-
 
 
 
