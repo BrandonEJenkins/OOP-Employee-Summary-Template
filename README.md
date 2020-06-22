@@ -12,3 +12,8 @@ Prompts user for team information and creates HTML file that displays user respo
 * https://stackoverflow.com/questions/53137851/what-is-next-in-nodejs
 * https://www.reddit.com/r/node/comments/9q3chw/looping_inquirerjs_prompts/
 * https://stackoverflow.com/questions/55619992/how-to-get-my-if-else-statements-to-work-properly-in-this-node-file-using-inqu
+* https://www.sitepoint.com/javascript-command-line-interface-cli-node-js/
+* https://www.smashingmagazine.com/2017/03/interactive-command-line-application-node-js/
+* https://stackoverflow.com/questions/21617468/node-js-generate-html
+* https://www.youtube.com/watch?v=j95Lwxvi9JY
+* 

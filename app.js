@@ -2,13 +2,13 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
-const path = require("path");
+// const path = require("path");
 const fs = require("fs");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
+// const OUTPUT_DIR = path.resolve(__dirname, "output");
+// const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./lib/htmlRenderer");
+// const render = require("./lib/htmlRenderer");
 
 // Array to store user responses
 const employeeResponseArr = [];
@@ -155,6 +155,41 @@ function init() {
 
                         console.log(employeeResponseArr);
 
+                        fs.appendFileSync("main.html", 
+                        `
+                        <!DOCTYPE html>
+                        <html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+                                <title>Document</title>
+                            </head>
+                            <body>
+                                <div class="card rounded" style="width: 18rem;">
+                                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                                    <div class="card-body bg-primary text-white">
+                                        <h2 class="card-title">${mgrResponse.name}</h5>
+                                        <h3 class="card-text">${response.employeeOption}</h3>
+                                    </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">ID Number: ${response.employeeId}</li>
+                                            <li class="list-group-item">Email: <a href="mailto:${mgrResponse.email}">${mgrResponse.email}</a></li>
+                                            <li class="list-group-item">Office Number: ${mgrResponse.officeNumber}</li>
+                                        </ul>
+                                </div>
+                            </body>
+                        </html>
+                        `
+                        , function(err) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                console.log("Success");
+                            }
+                        });
+
                     });
                 } else if (response.employeeOption === 'Engineer') {
                     inquirer.prompt(engineerQuestionArr).then((engrResponse) => {
@@ -162,7 +197,7 @@ function init() {
                         let name = engrResponse.name;
                         let id = engrResponse.id;
                         let email = engrResponse.email;
-                        let github = engrResponse.engGithub;
+                        let github = engrResponse.github;
 
                         const engineerEmployee = new Engineer(name, id, email, github);
 
@@ -178,9 +213,9 @@ function init() {
                         let name = internResponse.name;
                         let id = internResponse.id;
                         let email = internResponse.email;
-                        let github = internResponse.engGithub;
+                        let school = internResponse.school;
 
-                        const internEmployee = new Engineer(name, id, email, github);
+                        const internEmployee = new Intern(name, id, email, school);
 
                         employeeResponseArr.push(response);
                         employeeResponseArr.push(internEmployee);
@@ -191,22 +226,23 @@ function init() {
                 } else {
                     
                     console.log('Generating team org page...')
-                    buildTeamSummary();
+                    // buildTeamSummary();
+
                 }
             });
         
 };
 
 
-function buildTeamSummary() {
+// function buildTeamSummary() {
 
-    fs.writeFile(outputPath, render(employeeResponseArr), function(error) {
-        if (error) {
-            return console.log(error)
-        }
-    })
+//     fs.writeFile(outputPath, render(employeeResponseArr), function(error) {
+//         if (error) {
+//             return console.log(error)
+//         }
+//     })
 
-}
+// }
 
 
 init();
