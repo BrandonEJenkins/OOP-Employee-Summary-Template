@@ -1,5 +1,18 @@
-# OOP-Employee-Summary-Template
-Prompts user for team information and creates HTML file that displays user responses
+# Team Profile Generator
+
+This application creates a team profile based on a user's input.  It prompts the user for team information and creates HTML file that displays user responses.
+
+Link to video of application:
+https://drive.google.com/file/d/1l6cfcBwfeZQIgrSgOgDtK6zI6vvy598S/view
+
+# Installation
+
+## Instructions:
+* Download Node.js
+* Clone this repo
+* Run npm install
+* Run node app.js
+* Respond to prompts in the command line
 
 # Sources
 * https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
