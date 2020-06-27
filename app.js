@@ -24,7 +24,7 @@ const employeeQuestionArr = [
     },
     {
         type: 'input',
-        name: 'employeeName',
+        name: 'name',
         message: 'Enter name of team member:'
     },
     {
@@ -32,17 +32,17 @@ const employeeQuestionArr = [
         name: 'employeeId',
         message: 'Enter ID number:',
         default: 'Employee'
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Enter Team Member\'s email address:'
     }
 
 ];
 
 const managerQuestionArr = [
 
-    {
-        type: 'input',
-        name: 'email',
-        message: 'Enter Manager\'s email address:'
-    },
     {
         type: 'input',
         name: 'officeNumber',
@@ -71,77 +71,58 @@ const internQuestionArr = [
 
 ];
 
-// const addEmployee = [
-
-//     {
-//         type: 'list',
-//         name: 'newTeamMember',
-//         message: 'Select role of team member to add: ',
-//         choices: ['Manager', 'Engineer', 'Intern', 'Finished']
-//     }
-
-// ];
-
 function init() {
     inquirer
         .prompt(employeeQuestionArr)
             .then((response) => {
                 if(response.employeeOption === 'Manager') {
-                    inquirer.prompt(managerQuestionArr).then((response) => {
+                    inquirer.prompt(managerQuestionArr).then((managerResponse) => {
 
                         let name = response.name;
-                        let id = response.id;
+                        let id = response.employeeId;
                         let email = response.email;
-                        let officeNumber = response.officeNumber;
+                        let officeNumber = managerResponse.officeNumber;
 
                         const manager = new Manager(name, id, email, officeNumber);
 
-                        employeeResponseArr.push(response);
                         employeeResponseArr.push(manager);
-
-                        console.log(employeeResponseArr);
 
                         init();
 
                     });
                 } else if (response.employeeOption === 'Engineer') {
-                    inquirer.prompt(engineerQuestionArr).then((response) => {
+                    inquirer.prompt(engineerQuestionArr).then((engineerResponse) => {
 
                         let name = response.name;
-                        let id = response.id;
+                        let id = response.employeeId;
                         let email = response.email;
-                        let github = response.github;
+                        let github = engineerResponse.github;
 
                         const engineer = new Engineer(name, id, email, github);
 
-                        employeeResponseArr.push(response);
                         employeeResponseArr.push(engineer);
-
-                        console.log(employeeResponseArr);
 
                         init();
 
                     });
                 } else if (response.employeeOption === 'Intern') {
-                    inquirer.prompt(internQuestionArr).then((response) => {
+                    inquirer.prompt(internQuestionArr).then((internResponse) => {
 
                         let name = response.name;
-                        let id = response.id;
+                        let id = response.employeeId;
                         let email = response.email;
-                        let school = response.school;
+                        let school = internResponse.school;
 
                         const intern = new Intern(name, id, email, school);
 
-                        employeeResponseArr.push(response);
                         employeeResponseArr.push(intern);
-
-                        console.log(employeeResponseArr);
 
                         init();
 
                     });
                 } else {
                     
+                    console.log(employeeResponseArr)
                     console.log('Generating team org page...')
                     buildTeamSummary();
 
@@ -157,6 +138,7 @@ function buildTeamSummary() {
             return console.log(err)
         }
     })
+    console.log(employeeResponseArr);
 
 }
 
